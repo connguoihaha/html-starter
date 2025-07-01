@@ -1,96 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-    <h1>Vercel HTML Starter</h1>
-    <p>
-      This template is a simple, but powerful single
-      <code>index.html</code> file deployed to
-      <a href="https://vercel.com">Vercel</a>. When your site is deployed, all
-      static assets (like HTML, JavaScript, CSS, images, and more) are deployed
-      globally to every
-      <a href="https://vercel.com/docs/concepts/edge-network/overview"
-        >Vercel Edge Network</a
-      >
-      region.
-    </p>
-    <h2>Simple, privacy-friendly analytics</h2>
-    <p>
-      Want to understand your visitor traffic? Vercel Analytics gives you
-      first-party, privacy-friendly traffic analytics for your HTML site. This
-      template is already configured using the following script:
-    </p>
-    <pre><code>&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/analytics">Vercel Analytics</a>.
-    </p>
-    <h2>Integrated with git</h2>
-    <p>
-      Deploying updates to your site is as simple as
-      <code>git push</code> thanks to Vercel's advanced
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-      Support for GitHub, GitLab, Bitbucket is zero-configuration, and with the
-      flexible Vercel CLI and API, you can integrate with any tool possible.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-    </p>
-    <h2>Fast <code>gzip</code> compression</h2>
-    <p>
-      To help ensure the smallest possible file sizes for your static assets,
-      the Vercel Edge Network compresses files by default using
-      <code>gzip</code>. You can also optionally use
-      <code>brotli</code> compressesion if you prefer.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/edge-network/compression"
-        >compression</a
-      >.
-    </p>
-    <h2>Advanced routing configuration</h2>
-    <p>
-      Vercel gives you a variety of ways to configure the routing of your
-      website. For example, adding redirects, rewrites, or headers to your page.
-      While you can use <code>vercel.json</code> to define these through JSON,
-      you can also express your routing configuration as code using
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-    <p>
-      Middleware runs before the
-      <a href="https://vercel.com/docs/concepts/edge-network/caching"
-        >Vercel Edge Network Cache</a
-      >, so you can configure routing exactly as your application needs. For
-      example, this template uses <code>middleware.js</code> defined in the root
-      of the repository to add additional security headers to the site:
-    </p>
-    <pre><code>referrer-policy: origin-when-cross-origin
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-x-content-type-options: nosniff
-x-dns-prefetch-control: on
-x-frame-options: DENY</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-  </body>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tra cứu Mã Vận Đơn Shopee</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin-top: 80px;
+    }
+    .card {
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .btn-primary {
+      border-radius: 30px;
+      padding: 10px 25px;
+    }
+    .tracking-result {
+      background: #e9f7ef;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .timeline-item {
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card p-4">
+      <h3 class="text-center mb-4">🔍 Tra cứu Mã Vận Đơn Shopee</h3>
+      <div class="mb-3">
+        <input type="text" id="trackingCode" class="form-control" placeholder="Nhập mã vận đơn SPX..." />
+      </div>
+      <div class="d-grid">
+        <button class="btn btn-primary" onclick="trackOrder()">Tra cứu</button>
+      </div>
+      <div id="result" class="tracking-result mt-4 d-none"></div>
+    </div>
+  </div>
+
+  <script>
+  async function trackOrder() {
+    const code = document.getElementById("trackingCode").value.trim();
+    const resultDiv = document.getElementById("result");
+    resultDiv.classList.add("d-none");
+    resultDiv.innerHTML = "";
+
+    if (!code) {
+      resultDiv.innerHTML = "<span class='text-danger'>Vui lòng nhập mã vận đơn.</span>";
+      resultDiv.classList.remove("d-none");
+      return;
+    }
+
+    resultDiv.innerHTML = "Đang tra cứu...";
+    resultDiv.classList.remove("d-none");
+
+    try {
+      // GỌI API CỦA CHÍNH MÌNH THAY VÌ SPX
+      const res = await fetch(`/track?spx_tn=${code}`);
+      const json = await res.json();
+
+      if (json.retcode !== 0 || !json.data?.sls_tracking_info?.records?.length) {
+        throw new Error("Không có dữ liệu phù hợp.");
+      }
+
+      const records = json.data.sls_tracking_info.records;
+      let html = '<h5>📦 Trạng thái đơn hàng:</h5>';
+
+      records.reverse().forEach(r => {
+        const time = new Date(r.actual_time * 1000).toLocaleString("vi-VN");
+        html += `
+          <div class="timeline-item">
+            <strong>${r.buyer_description || r.description}</strong><br />
+            <small>${time}</small><br />
+            ${r.current_location?.location_name ? `<em>Địa điểm: ${r.current_location.location_name}</em>` : ''}
+          </div>
+        `;
+      });
+
+      resultDiv.innerHTML = html;
+    } catch (error) {
+      console.error(error);
+      resultDiv.innerHTML = "<span class='text-danger'>Không thể tra cứu lúc này. Vui lòng kiểm tra lại mã hoặc thử lại sau.</span>";
+    }
+  }
+</script>
+</body>
 </html>
