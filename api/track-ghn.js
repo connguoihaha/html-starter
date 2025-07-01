@@ -9,14 +9,17 @@ export default async function handler(req, res) {
     const response = await fetch('https://fe-online-gateway.ghn.vn/order-tracking/public-api/client/tracking-logs', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Origin': 'https://donhang.ghn.vn',
+        'User-Agent': 'Mozilla/5.0',
+        'Referer': 'https://donhang.ghn.vn/'
       },
       body: JSON.stringify({ order_code: ghn_code })
     });
 
     const data = await response.json();
 
-    // ✅ Kiểm tra dữ liệu hợp lệ
+    // Nếu không có logs hợp lệ → xem là mã không tồn tại
     if (!data || !data.data || !Array.isArray(data.data.logs)) {
       return res.status(404).json({ error: 'Không tìm thấy mã vận đơn GHN' });
     }
