@@ -801,57 +801,54 @@
 
     async function trackOrder() {
       const code = document.getElementById("trackingCode").value.trim();
-    
-      // ✅ Kiểm tra định dạng mã vận đơn: Bỏ dòng này nếu bạn muốn hỗ trợ nhiều đơn vị khác
-      if (!/^SPXVN\d{9}$/i.test(code)) {
-        showContainer('errorContainer');
-        setLoadingState(false);
-        isTracking = false;
+      
+      if (!code) {
+        document.getElementById('trackingCode').focus();
         return;
       }
-    
-      if (!code || isTracking) return;
+
+      if (isTracking) return;
       isTracking = true;
-    
+
       clearResults();
       setLoadingState(true);
-    
+
       try {
-        // Delay mô phỏng
+        // Simulate API call delay for demo
         await new Promise(resolve => setTimeout(resolve, 1500));
-    
+        
         const res = await fetch(`/api/track?spx_tn=${code}`);
         const json = await res.json();
-    
+
         const records = json?.data?.sls_tracking_info?.records || [];
-    
-        // ✅ Chỉ kiểm tra records, bỏ kiểm tra tracking_code
-        if (!Array.isArray(records) || records.length === 0) {
-          throw new Error('Không có dữ liệu');
+        
+        if (records.length === 0) {
+          throw new Error('No tracking information found');
         }
-    
-        allRecords = records;
-        isExpanded = false;
-    
+
+        allRecords = records; // Store all records
+        isExpanded = false; // Reset expansion state
+
+        // Show step indicator
         showContainer('stepContainer');
         updateSteps(records[0].milestone_name || records[0].buyer_description || records[0].description);
-    
+
+        // Show timeline with initial items
         setTimeout(() => {
           showContainer('timelineContainer');
           updateTimelineStats(records);
           renderTimeline();
         }, 300);
-    
+
       } catch (error) {
-        console.error('Lỗi tra cứu:', error);
+        console.error('Tracking error:', error);
         showContainer('errorContainer');
       } finally {
         setLoadingState(false);
         isTracking = false;
       }
     }
-
-
+    
     // Enter key support
     document.getElementById('trackingCode').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
