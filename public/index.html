@@ -69,7 +69,7 @@
 
     try {
       // GỌI API CỦA CHÍNH MÌNH THAY VÌ SPX
-      const res = await fetch(`/track?spx_tn=${code}`);
+      const res = await fetch(`/api/track?spx_tn=${code}`);
       const json = await res.json();
 
       if (json.retcode !== 0 || !json.data?.sls_tracking_info?.records?.length) {
