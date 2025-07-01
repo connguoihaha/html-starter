@@ -661,16 +661,12 @@
     }
 
     function showContainer(containerId) {
-      const containers = ['stepContainer', 'timelineContainer', 'errorContainer'];
-      containers.forEach(id => {
-        const element = document.getElementById(id);
-        if (id === containerId) {
-          element.classList.add('show');
-        } else {
-          element.classList.remove('show');
-        }
-      });
+      const element = document.getElementById(containerId);
+      if (element) {
+        element.classList.add('show');
+      }
     }
+
 
     function clearResults() {
       ['stepContainer', 'timelineContainer', 'errorContainer'].forEach(id => {
