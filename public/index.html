@@ -802,7 +802,7 @@
     async function trackOrder() {
       const code = document.getElementById("trackingCode").value.trim();
     
-      // ✅ Kiểm tra định dạng mã vận đơn trước
+      // ✅ Kiểm tra định dạng mã vận đơn: Bỏ dòng này nếu bạn muốn hỗ trợ nhiều đơn vị khác
       if (!/^SPXVN\d{9}$/i.test(code)) {
         showContainer('errorContainer');
         setLoadingState(false);
@@ -817,18 +817,17 @@
       setLoadingState(true);
     
       try {
-        // Giả lập delay nếu bạn đang test demo
+        // Delay mô phỏng
         await new Promise(resolve => setTimeout(resolve, 1500));
     
         const res = await fetch(`/api/track?spx_tn=${code}`);
         const json = await res.json();
     
-        const actualCode = json?.data?.tracking_code?.toLowerCase();
         const records = json?.data?.sls_tracking_info?.records || [];
     
-        // ✅ So sánh mã thật trả về với mã đã nhập & kiểm tra dữ liệu
-        if (!actualCode || actualCode !== code.toLowerCase() || records.length === 0) {
-          throw new Error('Mã vận đơn không hợp lệ hoặc không có dữ liệu');
+        // ✅ Chỉ kiểm tra records, bỏ kiểm tra tracking_code
+        if (!Array.isArray(records) || records.length === 0) {
+          throw new Error('Không có dữ liệu');
         }
     
         allRecords = records;
@@ -844,7 +843,7 @@
         }, 300);
     
       } catch (error) {
-        console.error('Tracking error:', error);
+        console.error('Lỗi tra cứu:', error);
         showContainer('errorContainer');
       } finally {
         setLoadingState(false);
